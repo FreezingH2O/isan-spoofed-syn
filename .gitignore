@@ -1,0 +1,75 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+*.whl
+*.tar.gz
+
+# ── Virtual environments ───────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+
+# ── Type checking & linting ───────────────────────────────────────────────────
+.mypy_cache/
+.ruff_cache/
+
+# ── Testing ────────────────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ── External repos (cloned into project root) ─────────────────────────────────
+Retrieval-based-Voice-Conversion-WebUI/
+rvc/
+
+# ── Auto-generated manifests ──────────────────────────────────────────────────
+**/manifest.json
+
+# ── Data — generated audio (large binary, not committed) ──────────────────────
+data/raw_dataset/*.wav
+data/tts_output/
+data/speakers/
+data/augmented/
+
+# keep folder placeholders and user input texts
+!data/raw_dataset/.gitkeep
+!data/normalized_text/input/
+!data/normalized_text/input/*.txt
+
+# normalized outputs are generated — ignore them
+data/normalized_text/*.normalized.txt
+data/normalized_text/manifest.json
+
+# ── Model weights (large binary, not committed) ────────────────────────────────
+models/rvc/*.pth
+models/rvc/*.index
+models/contentvec/*.pt
+models/contentvec/*.bin
+
+# ── Output audio (large binary, not committed) ────────────────────────────────
+output/spoofed/
+output/enhanced/
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+logs/
+*.log
+
+# ── Environment / secrets ─────────────────────────────────────────────────────
+.env
+.env.*
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo

@@ -1,0 +1,62 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "isan-spoofed"
+version = "0.1.0"
+description = "Thai-Isan accent-preserving voice conversion pipeline for ASV anti-spoofing research"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.1.0",
+    "torchaudio>=2.1.0",
+    "datasets>=2.18.0",
+    "soundfile>=0.12.1",
+    "librosa>=0.10.1",
+    "numpy>=1.26.0",
+    "scipy>=1.12.0",
+    "pydub>=0.25.1",
+    "requests>=2.31.0",
+    "pyyaml>=6.0.1",
+    "tqdm>=4.66.0",
+    "loguru>=0.7.2",
+    "click>=8.1.7",
+    "rich>=13.7.0",
+    "openpyxl>=3.1.0",
+    "huggingface-hub>=0.21.0",
+    "deepfilternet>=0.5.6",
+]
+
+[project.optional-dependencies]
+enhance = [
+    "resemble-enhance>=0.0.2",     # ALTERNATIVE ENGINE — use with strength ≤ 0.4 for PAD datasets
+]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=5.0.0",
+    "ruff>=0.4.0",
+    "mypy>=1.9.0",
+]
+
+[project.scripts]
+isan-pipeline = "isan_spoofed.pipeline:cli"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/isan_spoofed"]
+
+[tool.ruff]
+src = ["src"]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=isan_spoofed --cov-report=term-missing"

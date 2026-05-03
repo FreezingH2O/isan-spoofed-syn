@@ -1,0 +1,77 @@
+paths:
+  data:
+    speakers: data/speakers
+    tts_output: data/tts_output
+    normalized_text: data/normalized_text
+    augmented: data/augmented
+    raw_dataset: data/raw_dataset
+  models:
+    rvc: models/rvc
+    contentvec: models/contentvec
+  output:
+    spoofed: output/spoofed
+    enhanced: output/enhanced
+  analysis:
+    speaker_xlsx: data/speaker_analysis.xlsx
+  logs: logs
+
+datasets:
+  phonetic_dict: typhoon-ai/isan-phonetic-dictionary
+  speaker_audio: typhoon-ai/thai-dialect-isan-dataset
+
+tts:
+  base_url: "TTS-api"
+  api_key: "TTS-api-key"
+  model: "F5-TTS"
+  voices: [s1, s2, s3, s4, s5]   # available voice IDs
+  default_voice: "s5"
+  output_format: wav
+
+curation:
+  min_clip_duration_s: 3
+  max_clip_duration_s: 15
+  target_duration_min_s: 60    # 1 minute minimum per speaker
+  target_duration_max_s: 300   # 5 minutes maximum per speaker
+  sample_rate: 44100
+  uvr:
+    vocal_model: MDX-Net_Kim_Vocal_1
+    dereverb_model: UVR-DeEcho-DeReverb
+
+training:
+  epochs: 150
+  batch_size: 8
+  save_every_n_epochs: 25
+  sample_rate: 40000
+  rvc_version: v2
+
+inference:
+  pitch_extractor: rmvpe      # rmvpe | harvest | pm | crepe
+  index_rate: 0.75            # 0.6–1.0; lower if tone leakage detected
+  protect: 0.5                # 0.0–0.5; voiceless consonant protection
+  filter_radius: 3            # median filtering on F0 contour
+  transpose: 0                # semitone shift; 0 for same-gender, ±12 cross-gender
+  resample_sr: 0              # 0 = no resample
+  rms_mix_rate: 0.25
+
+enhancement:
+  engine: deepfilter           # deepfilter | resemble
+  deepfilter:
+    attenuation_limit: 35      # dB max noise reduction — lower preserves more VC artifacts
+  resemble:
+    denoise_only: false        # true = denoiser only (safer for PAD), false = full enhancer
+    strength: 0.4              # 0.0–1.0 — lower preserves more VC artifacts
+
+augmentation:
+  rawboost:
+    enabled: true
+    algo: LnL_convolutive_noise   # LnL_convolutive_noise | ISD_additive_noise | SSI_additive_noise
+    noisesnr: 40
+    noisefactor: 0.035
+    N_f: 5
+  double_sided_spectrogram:
+    enabled: true
+    n_fft: 2048
+    hop_length: 512
+  artifact_amplification:
+    enabled: true
+    amplification_factor: 2.5
