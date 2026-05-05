@@ -140,7 +140,7 @@ conda activate isan-spoofed
 Open `config.yaml` and set your endpoint:
 ```yaml
 tts:
-  base_url: "http://<your-tts-server>:6002/v1"
+  base_url: "http://<your-tts-server>"
   api_key: "your-key"
   model: "F5-TTS"
   default_voice: "s5"
